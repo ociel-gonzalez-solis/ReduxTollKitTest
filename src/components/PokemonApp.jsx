@@ -1,18 +1,22 @@
 import { usePokemons } from "./hooks";
 
 export const PokemonApp = () => {
-  const {} = usePokemons();
+  const { newPokemonPage, page, pokemons = [], isLoading } = usePokemons();
   return (
     <>
       <h1>PokemonApp</h1>
 
       <hr />
-
+      <span>Loading Pokemons: {!isLoading ? "true" : "false"}</span>
       <ul>
-        <li>1</li>
-        <li>2</li>
-        <li>3</li>
+        {pokemons.map(({ name }) => (
+          <li key={name}>{name}</li>
+        ))}
       </ul>
+
+      <button disabled={isLoading} onClick={() => newPokemonPage(page)}>
+        Next Page
+      </button>
     </>
   );
 };
